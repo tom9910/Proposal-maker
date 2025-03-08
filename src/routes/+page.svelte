@@ -6,10 +6,8 @@
 
 	import { generateProposal } from '$lib/generate/createDoc';
 	import { Packer } from 'docx';
-	// import { writeFileSync } from 'fs';
-	// import { blob } from 'stream/consumers';
 
-	import GoogleButton from '$lib/googleButton.svelte';
+	//import GoogleButton from '$lib/googleButton.svelte';
 
 	$: Price = 0;
 
@@ -35,17 +33,13 @@
 
 			window.URL.revokeObjectURL(url);
 		});
-
-		//Packer.toBuffer(doc).then((buffer) => {
-		//writeFileSync('Proposal-' + address1 + '-' + name + '.docx', buffer);
-		//});
 	};
 </script>
 
 <div class="bg-blue-900 h-12 w-full flex items-center p-4">
 	<h1>Proposal Generator</h1>
 	<button class="variant-ghost-secondary p-1 ml-auto">Sign in</button>
-	<GoogleButton />
+	<!-- <GoogleButton /> -->
 </div>
 
 <div class="container h-full mx-auto justify-center items-center text-center">

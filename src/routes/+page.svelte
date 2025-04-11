@@ -38,7 +38,7 @@
 
 <div class="bg-blue-900 h-12 w-full flex items-center p-4">
 	<h1>Proposal Generator</h1>
-	<button class="variant-ghost-secondary p-1 ml-auto">Sign in</button>
+	<!-- <button class="variant-ghost-secondary p-1 ml-auto">Sign in</button> -->
 	<!-- <GoogleButton /> -->
 </div>
 

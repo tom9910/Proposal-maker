@@ -22,8 +22,8 @@ It must be formatted similar to
 
 ```
 export const companyInfo = {
-	nameAndLicenseNum: 'TED SANCHEZ ROOFING 								LIC. # 030376',
-	addressAndPhoneNum: '7102 GETTYSBURG RD. NE 							PH. # 505 316-0036'
+	nameAndLicenseNum: 'Company name								lic info',
+	addressAndPhoneNum: ' 1234 address rd							PH. # 555-555-5555'
 };
 ```
 

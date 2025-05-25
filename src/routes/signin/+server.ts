@@ -1,5 +1,4 @@
 // src/routes/login/+server.ts
-import { ADMIN_HASH, OPENAI_API_KEY } from '$env/static/private';
 import { json } from '@sveltejs/kit';
 import bcrypt from 'bcryptjs';
 import { error } from 'console';

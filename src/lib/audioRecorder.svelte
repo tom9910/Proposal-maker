@@ -47,7 +47,7 @@
 		timeoutId = setTimeout(() => {
 			wasTimeOut = true;
 			stopRecording();
-		}, 75000);
+		}, 120000);
 	}
 
 	function stopRecording() {
@@ -105,18 +105,22 @@
 	}
 </script>
 
-{#if waitingForSummary}
-	<ProgressRadial value={undefined} class="w-6 m-auto" />
-{:else if recording}
-	<button on:click={stopRecording} disabled={!recording}><Icon icon={mdiMicrophone} /></button>
-{:else}
-	<button on:click={startRecording} disabled={recording}> <Icon icon={mdiMicrophoneOff} /></button>
-{/if}
+<div class="flex ms-4">
+	{#if waitingForSummary}
+		<ProgressRadial value={undefined} class="w-6 m-auto" />
+	{:else if recording}
+		<button on:click={stopRecording} disabled={!recording}><Icon icon={mdiMicrophone} /></button>
+	{:else}
+		<button on:click={startRecording} disabled={recording}>
+			<Icon icon={mdiMicrophoneOff} /></button
+		>
+	{/if}
 
-<!-- Can hide this -->
-{#if audioUrl}
-	<audio controls>
-		<source src={audioUrl} type="audio/webm" />
-		Your browser does not support the audio element.
-	</audio>
-{/if}
+	<!-- Can hide this -->
+	{#if audioUrl}
+		<audio controls class="hidden md:block">
+			<source src={audioUrl} type="audio/webm" />
+			Your browser does not support the audio element.
+		</audio>
+	{/if}
+</div>

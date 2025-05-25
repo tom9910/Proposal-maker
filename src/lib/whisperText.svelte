@@ -9,22 +9,6 @@
 	export let type: string;
 
 	$: waitForUpload = false;
-
-	// pass audio to this function unused
-	// const getTextFromAudio = async () => {
-	// 	waitForUpload = true;
-
-	// 	const response = await fetch('api/transcribe/', {
-	// 		method: 'GET'
-	// 	});
-
-	// 	waitForUpload = false;
-
-	// 	console.log('here');
-	// 	console.log(response);
-
-	// 	// save summary result to text area
-	// };
 </script>
 
 <div>
@@ -34,7 +18,7 @@
 	{/if}
 	<label class="mt-10"
 		>{Label}
-		<div class="flex">
+		<div class="flex w-11/12">
 			<textarea
 				class={type === 'info' ? 'textarea h-40' : 'textarea h-80'}
 				bind:value={$TextSummary}

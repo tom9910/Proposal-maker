@@ -12,28 +12,31 @@
 
 	$: Price = 0;
 
-	const generateAndSave = () => {
-		const doc = generateProposal($WorkToBePerformedAt, $WorkToBePerformed, Price.toString());
+	const generateAndSave = async () => {
+		const doc = await generateProposal($WorkToBePerformedAt, $WorkToBePerformed, Price.toString());
 
 		//save
 		const [name, address1, address2, phone, email] = $WorkToBePerformedAt
 			.split('\n')
 			.map((line) => line.trim());
+		if ('error' in doc) {
+			alert(doc.error);
+		} else {
+			Packer.toBlob(doc).then((blob) => {
+				const url = window.URL.createObjectURL(blob);
 
-		Packer.toBlob(doc).then((blob) => {
-			const url = window.URL.createObjectURL(blob);
+				const link = document.createElement('a');
 
-			const link = document.createElement('a');
+				link.href = url;
+				link.download = `Proposal-${address1}-${name}.docx`;
 
-			link.href = url;
-			link.download = `Proposal-${address1}-${name}.docx`;
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
 
-			document.body.appendChild(link);
-			link.click();
-			document.body.removeChild(link);
-
-			window.URL.revokeObjectURL(url);
-		});
+				window.URL.revokeObjectURL(url);
+			});
+		}
 	};
 
 	const logout = async () => {

@@ -12,7 +12,13 @@ const openai = new OpenAI({
 	apiKey: env.OPENAI_API_KEY
 });
 
-export async function POST({ request }) {
+export async function POST({ request, cookies }) {
+	// 🔐 Check auth cookie
+	const auth = cookies.get('auth');
+	if (auth !== 'logged-in') {
+		return json({ error: 'Unauthorized' }, { status: 401 });
+	}
+
 	console.log('starting audio processing');
 	const formData = await request.formData();
 	const type = formData.get('type') as string;

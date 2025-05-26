@@ -183,14 +183,14 @@ export async function generateProposal(customerInfo: string, workItems: string, 
 						new Paragraph({
 							children: [] // Just newline without text
 						}),
-						new Paragraph({
-							children: [
-								new TextRun({
-									text: 'REPLACE HAIL DAMAGED ROOF: ',
-									bold: true
-								})
-							]
-						}),
+						// new Paragraph({  this needs to be not hard coded. This should come from a text box.
+						// 	children: [
+						// 		new TextRun({
+						// 			text: 'REPLACE HAIL DAMAGED ROOF: ',
+						// 			bold: true
+						// 		})
+						// 	]
+						// }),
 						new Paragraph({
 							children: [] // Just newline without text
 						}),

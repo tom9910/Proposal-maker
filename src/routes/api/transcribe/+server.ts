@@ -38,7 +38,7 @@ export async function POST({ request, cookies }) {
 
 		// Create a file
 		try {
-			await fsp.writeFile('static/audio/recording.webm', buffer);
+			await fsp.writeFile('/tmp/recording.webm', buffer);
 			console.log('File written successfully');
 		} catch (error) {
 			console.log('error writing file:', error);
@@ -48,7 +48,7 @@ export async function POST({ request, cookies }) {
 		try {
 			if (env.API_ON !== 'False') {
 				const transcription = await openai.audio.transcriptions.create({
-					file: fs.createReadStream('static/audio/recording.webm'),
+					file: fs.createReadStream('/tmp/recording.webm'),
 					model: 'whisper-1'
 					// prompt: "use @ for emails like johnny@appleseed.com and use numbers like 123-4567 for phone numbers" doesnt seem to do anything
 				});
@@ -90,7 +90,7 @@ export async function POST({ request, cookies }) {
 
 		// delete file from static
 
-		unlink('static/audio/recording.webm', (err) => {
+		unlink('/tmp/recording.webm', (err) => {
 			if (err) console.log(err);
 			else {
 				console.log('File deleted');

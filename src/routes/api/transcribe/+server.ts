@@ -38,7 +38,7 @@ export async function POST({ request, cookies }) {
 
 		// Create a file
 		try {
-			await fsp.writeFile('/tmp/recording.webm', buffer);
+			await fsp.writeFile('/tmp/recording.webm', buffer); //switch all these to static/audio/ for local dev
 			console.log('File written successfully');
 		} catch (error) {
 			console.log('error writing file:', error);
@@ -67,6 +67,7 @@ export async function POST({ request, cookies }) {
 					'INSTALL SYNTHETIC VAPOR BARRIER',
 					'INSTALL NEW STARTER SHINGLES',
 					'INSTALL MODIFIED BITUMEN',
+					'THREE COURSE VENTS',
 					'APPLY PLASTIC CEMENT AROUND ROOF PENETRATIONS AND VENTS',
 					'CLEAN JOB SITE WHEN COMPLETE'
 				];

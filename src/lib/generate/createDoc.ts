@@ -7,9 +7,16 @@ export async function generateProposal(customerInfo: string, workItems: string, 
 		const docHeaderParts = await companyInfoResult.json();
 
 		const companyInfo: { nameAndLicenseNum: string; addressAndPhoneNum: string } = {
-			nameAndLicenseNum: 'TED SANCHEZ ROOFING 								LIC. # ' + docHeaderParts?.lic,
+			nameAndLicenseNum: 'TED SANCHEZ          								LIC. # ' + docHeaderParts?.lic,
 			addressAndPhoneNum: '' + docHeaderParts?.addy + '							PH. # ' + docHeaderParts?.phone
 		};
+
+		//get bullet point header
+		const header = workItems
+			.split('\n')
+			.find((line) => line.startsWith('###'))
+			?.replace(/^###\s*/, '');
+		console.log('LINE', header);
 
 		// Parse customer info
 		const [name, address1, address2, phone, email] = customerInfo
@@ -19,7 +26,7 @@ export async function generateProposal(customerInfo: string, workItems: string, 
 		const paragraphWithLine = new Paragraph({
 			border: {
 				bottom: {
-					color: '#0d3ab8', // Blue color
+					color: '#000000', // Black color
 					space: 1,
 					style: BorderStyle.SINGLE,
 					size: 6 // Line thickness in 1/8th points
@@ -49,7 +56,7 @@ export async function generateProposal(customerInfo: string, workItems: string, 
 									text: 'PROPOSAL',
 									bold: true,
 									size: 32,
-									color: '#0d3ab8'
+									color: '#000000'
 								})
 							]
 						}),
@@ -85,7 +92,7 @@ export async function generateProposal(customerInfo: string, workItems: string, 
 							alignment: AlignmentType.LEFT,
 							children: [
 								new TextRun({
-									text: 'ALBUQUERQUE, NM 87109',
+									text: 'SANTA FE NM, 87505',
 									bold: true,
 									italics: true,
 									size: 20
@@ -176,21 +183,21 @@ export async function generateProposal(customerInfo: string, workItems: string, 
 									text: '\nDESCRIPTION OF WORK TO BE PERFORMED:',
 									bold: true,
 									size: 24,
-									color: '#0d3ab8'
+									color: '#000000'
 								})
 							]
 						}),
 						new Paragraph({
 							children: [] // Just newline without text
 						}),
-						// new Paragraph({  this needs to be not hard coded. This should come from a text box.
-						// 	children: [
-						// 		new TextRun({
-						// 			text: 'REPLACE HAIL DAMAGED ROOF: ',
-						// 			bold: true
-						// 		})
-						// 	]
-						// }),
+						new Paragraph({
+							children: [
+								new TextRun({
+									text: header === null ? '' : header,
+									bold: true
+								})
+							]
+						}),
 						new Paragraph({
 							children: [] // Just newline without text
 						}),
@@ -198,7 +205,8 @@ export async function generateProposal(customerInfo: string, workItems: string, 
 						// Work Items
 						...workItems
 							.split('-')
-							.filter((item) => item.trim())
+							.map((item) => item.trim())
+							.filter((item, index) => item && index > 0)
 							.map(
 								(item) =>
 									new Paragraph({

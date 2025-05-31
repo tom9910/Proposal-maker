@@ -6,8 +6,6 @@ const openai = new OpenAI({
 	apiKey: env.OPENAI_API_KEY
 });
 
-const commonPoints = [''];
-
 export async function convertToBulletPoints(
 	inputText: string,
 	commonPoints: string[]
@@ -17,7 +15,8 @@ export async function convertToBulletPoints(
 		const prompt = `
           Convert the following text into clear, organized bullet points.
           Pay special attention to these key phrases if they appear and only if they appear: ${commonPoints.join(', ')}.
-          Make sure to maintain any important relationships between ideas. There should also be a title to the bullet points. Which will be the first item in the provided text. 
+          Make sure to maintain any important relationships between ideas. There should also be a title to the bullet points. Which will be the first item in the provided text.
+		  Spell out any numbers less than 10. Do not follow up any numbers with a dash. 
 		  If no text comes through and only if there is no text remind the user to check the microphone.
 
           Text to convert:

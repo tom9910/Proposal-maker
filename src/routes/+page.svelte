@@ -114,13 +114,6 @@
 				generateAndSave();
 			}}>Generate and Download</button
 		>
-		<button
-			class="variant-ghost-success p-2 m-5"
-			on:click={() => {
-				generateAndSave();
-			}}>Generate and Download 2</button
-		>
-		<!-- <button on:click={() => {WorkToBePerformedAt="hello"; console.log("hello")}} >Start Recording</button> -->
 	</div>
 {:else}
 	<h2>Welcome to AI Proposal Generator</h2>

@@ -7,6 +7,7 @@
 	import { generateProposal } from '$lib/generate/createDoc';
 	import { Packer } from 'docx';
 	import { goto, invalidateAll } from '$app/navigation';
+	import { generateInvoice } from '$lib/generate/createInvoice';
 
 	export let data;
 
@@ -14,6 +15,12 @@
 
 	const generateAndSave = async () => {
 		const doc = await generateProposal($WorkToBePerformedAt, $WorkToBePerformed, Price.toString());
+
+		const invoiceDoc = await generateInvoice(
+			$WorkToBePerformedAt,
+			$WorkToBePerformed,
+			Price.toString()
+		);
 
 		//save
 		const [name, address1, address2, phone, email] = $WorkToBePerformedAt
@@ -29,6 +36,26 @@
 
 				link.href = url;
 				link.download = `Proposal-${address1}-${name}.docx`;
+
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+
+				window.URL.revokeObjectURL(url);
+			});
+		}
+
+		//save invoice
+		if ('error' in invoiceDoc) {
+			alert(invoiceDoc.error);
+		} else {
+			Packer.toBlob(invoiceDoc).then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+
+				const link = document.createElement('a');
+
+				link.href = url;
+				link.download = `Invoice-${address1}-${name}.docx`;
 
 				document.body.appendChild(link);
 				link.click();
@@ -86,6 +113,12 @@
 			on:click={() => {
 				generateAndSave();
 			}}>Generate and Download</button
+		>
+		<button
+			class="variant-ghost-success p-2 m-5"
+			on:click={() => {
+				generateAndSave();
+			}}>Generate and Download 2</button
 		>
 		<!-- <button on:click={() => {WorkToBePerformedAt="hello"; console.log("hello")}} >Start Recording</button> -->
 	</div>
